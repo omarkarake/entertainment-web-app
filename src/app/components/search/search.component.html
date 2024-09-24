@@ -1,8 +1,8 @@
 <div class="flex items-center gap-4 h-[32px]">
-  <div class="pb-2">
+  <div class="pb-2 md:pb-0">
     <img
       src="assets/icon-search.svg"
-      class="w-[18px] h-[18px]"
+      class="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
       alt="icon-search"
     />
   </div>
@@ -11,7 +11,7 @@
     [ngClass]="{ 'border-b-[1px] border-graish-blue': isTyping }"
   >
     <input
-      class="text-pure-white w-full text-[16px] font-light outline-none border-none bg-transparent focus:caret-red"
+      class="text-pure-white w-full text-[16px] md:text-heading-m font-light outline-none border-none bg-transparent focus:caret-red"
       placeholder="Search for movies or TV series"
       (blur)="isTypingOutput()"
       (focus)="isTypingInput()"

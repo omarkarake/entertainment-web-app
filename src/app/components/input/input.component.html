@@ -3,7 +3,7 @@
   [ngClass]="{ 'border-pure-white': isTyping, 'border-red': isErrored }"
 >
   <input
-    class="text-pure-white w-[60%] text-[16px] font-light outline-none border-none bg-transparent focus:caret-red"
+    class="text-pure-white w-[60%] text-body-m md: font-light outline-none border-none bg-transparent focus:caret-red"
     placeholder="Email address"
     (blur)="isTypingOutput()"
     (focus)="isTypingInput()"
