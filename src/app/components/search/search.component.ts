@@ -9,10 +9,8 @@ export class SearchComponent {
   isTyping: boolean = false;
   isTypingInput() {
     this.isTyping = true;
-    console.log('Typing...');
   }
   isTypingOutput() {
     this.isTyping = false;
-    console.log('Not typing...');
   }
 }
