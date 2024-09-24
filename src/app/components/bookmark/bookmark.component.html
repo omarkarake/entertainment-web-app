@@ -1,0 +1,20 @@
+<!-- bookmark.component.html -->
+<div *ngIf="firstMediaItem$ | async as mediaItems">
+  <div *ngIf="mediaItems.length > 0">
+    <div
+      class="bookmark-thumbnail w-[164px] h-[110px] bg-cover bg-center rounded-lg"
+      [ngStyle]="{
+        'background-image': getResponsiveBackgroundImage(
+          mediaItems[0].thumbnail
+        )
+      }"
+      aria-label="First media item background"
+    >
+      <!-- Optional content, like title and details -->
+      <h2 class="text-white text-lg">{{ mediaItems[0].title }}</h2>
+      <p class="text-white">
+        {{ mediaItems[0].year }} - {{ mediaItems[0].category }}
+      </p>
+    </div>
+  </div>
+</div>
