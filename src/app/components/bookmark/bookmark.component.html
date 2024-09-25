@@ -1,22 +1,25 @@
 <!-- bookmark.component.html -->
-<div *ngIf="firstMediaItem$ | async as mediaItems">
+<div *ngIf="firstMediaItem$ | async as mediaItems" class="">
   <div *ngIf="mediaItems.length > 0" class="flex flex-col gap-[10px]">
     <div
-      class="bookmark-thumbnail bg-cover bg-center rounded-lg relative cursor-pointer"
+      class="bookmark-thumbnail bg-cover bg-center rounded-lg relative cursor-pointer group overflow-hidden"
       [ngClass]="{
         'w-[240px] h-[140px] md:w-[470px] md:h-[230px] p-[8px] md:p-0 md:px-[24px] md:py-[16px]': isTrending,
         'w-[164px] h-[110px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px] p-2 md:p-4': !isTrending,
-      }"
-      [ngStyle]="{
-        'background-image': getResponsiveBackgroundImage(
-          mediaItems[0].thumbnail,
-          isTrending
-        )
       }"
       (mouseenter)="isHovered = true"
       (mouseleave)="isHovered = false"
       aria-label="First media item background"
     >
+      <div
+      class="w-full h-full absolute top-0 left-0 rounded-lg bg-cover bg-center duration-300 group-hover:scale-105"
+        [ngStyle]="{
+          'background-image': getResponsiveBackgroundImage(
+            mediaItems[0].thumbnail,
+            isTrending
+          )
+        }"
+      ></div>
       <!-- div for toggling bookmarked movie -->
       <div class="flex items-center justify-end">
         <div
@@ -94,8 +97,8 @@
       </div>
       <!-- div to be shown when isHovered is true -->
       <div
-        class="w-full h-full absolute top-0 left-0 rounded-lg flex items-center justify-center transition ease-in duration-300"
-        [ngClass]="{'bg-black bg-opacity-50': isHovered}"
+        class="w-full h-full absolute top-0 left-0 rounded-lg md:flex items-center justify-center transition ease-in duration-300 hidden"
+        [ngClass]="{ 'bg-black bg-opacity-50': isHovered }"
       >
         <div
           *ngIf="isHovered"
