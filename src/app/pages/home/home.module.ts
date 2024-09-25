@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home.component';
+import { AuthGuard } from '../auth-pages/auth.guard';
 
-import { HomeRoutingModule } from './home-routing.module';
-
+const routes: Routes = [
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] }, // Protect the home route with AuthGuard
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    HomeRoutingModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class HomeModule { }
+export class HomeRoutingModule {}
