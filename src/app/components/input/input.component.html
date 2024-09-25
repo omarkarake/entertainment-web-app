@@ -1,10 +1,10 @@
 <div
-  class="h-[37px] pb-[4px] border-b-[1px] border-graish-blue pt-1 w-full flex"
+  class="h-[37px] pb-[4px] border-b-[1px] border-graish-blue pt-1 w-full flex pl-4"
   [ngClass]="{ 'border-pure-white': isTyping, 'border-red': isErrored }"
 >
   <input
     class="text-pure-white w-[60%] text-body-m md: font-light outline-none border-none bg-transparent focus:caret-red"
-    placeholder="Email address"
+    placeholder="{{placeholder}}"
     (blur)="isTypingOutput()"
     (focus)="isTypingInput()"
   />
