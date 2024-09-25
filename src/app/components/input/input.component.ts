@@ -20,6 +20,8 @@ import {
 export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = 'Type here...'; // Placeholder for the input
   @Input() control: FormControl = new FormControl(''); // Reactive form control
+  @Input() type: string = 'text'; // Input type
+  @Input() isErrored: boolean = false; // Error state
 
   isTyping: boolean = false;
   value: string = '';
@@ -73,10 +75,5 @@ export class InputComponent implements ControlValueAccessor {
     } else {
       this.control.enable();
     }
-  }
-
-  // Check if the control is invalid and touched to display error
-  isErrored(): boolean {
-    return this.control.invalid && this.control.touched;
   }
 }
