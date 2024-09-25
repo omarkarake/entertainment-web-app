@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class BookmarkComponent implements OnInit {
   firstMediaItem$!: Observable<MediaItem[]>;
   screenWidth: number = window.innerWidth;
+  isBookmarked: boolean = false;
 
   constructor(private mediaService: MediaService) {}
 
@@ -40,5 +41,9 @@ export class BookmarkComponent implements OnInit {
       // Large screen (Desktop)
       return `url(${thumbnail.regular.large})`;
     }
+  }
+
+  toggleBookmark() {
+    this.isBookmarked = !this.isBookmarked;
   }
 }
