@@ -8,25 +8,40 @@
     class="w-[90%] md:w-[400px] mx-auto bg-semi-dark-blue rounded-[10px] px-6 pt-6 pb-[32px] md:p-[32px] flex flex-col gap-10"
   >
     <p class="text-heading-l text-pure-white">Login</p>
-    <div class="flex flex-col gap-6">
-      <app-input [placeholder]="'Email address'"></app-input>
-      <app-input [placeholder]="'Password'"></app-input>
-    </div>
-    <div class="flex flex-col gap-6">
-      <app-button [text]="'Login to your account'"></app-button>
-      <div class="flex items-center justify-center gap-[10px]">
-        <div>
-          <p class="text-body-m text-pure-white">Don’t have an account?</p>
-        </div>
-        <div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-6">
+        <!-- Email Input -->
+        <app-input
+          [placeholder]="'Email address'"
+          [control]="emailControl"
+        ></app-input>
+
+        <!-- Password Input -->
+        <app-input
+          [placeholder]="'Password'"
+          [control]="passwordControl"
+          [type]="'password'"
+        ></app-input>
+      </div>
+
+      <div class="flex flex-col gap-6 mt-6">
+        <button type="submit">
+          <app-button [text]="'Login to your account'"></app-button>
+        </button>
+        <div class="flex items-center justify-center gap-[10px]">
+          <div>
+            <p class="text-body-m text-pure-white">Don’t have an account?</p>
+          </div>
+          <div>
             <a
-            [routerLink]="['/auth/signup']"
-            class="text-body-m text-red cursor-pointer"
-          >
-            Sign up
-          </a>
+              [routerLink]="['/auth/signup']"
+              class="text-body-m text-red cursor-pointer"
+            >
+              Sign up
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
