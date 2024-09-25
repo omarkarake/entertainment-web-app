@@ -2,7 +2,7 @@
 <div *ngIf="firstMediaItem$ | async as mediaItems">
   <div *ngIf="mediaItems.length > 0" class="flex flex-col gap-[10px]">
     <div
-      class="bookmark-thumbnail bg-cover bg-center rounded-lg relative"
+      class="bookmark-thumbnail bg-cover bg-center rounded-lg relative cursor-pointer"
       [ngClass]="{
         'w-[240px] h-[140px] md:w-[470px] md:h-[230px] p-[8px] md:p-0 md:px-[24px] md:py-[16px]': isTrending,
         'w-[164px] h-[110px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px] p-2 md:p-4': !isTrending,
@@ -13,30 +13,43 @@
           isTrending
         )
       }"
+      (mouseenter)="isHovered = true"
+      (mouseleave)="isHovered = false"
       aria-label="First media item background"
     >
       <!-- div for toggling bookmarked movie -->
       <div class="flex items-center justify-end">
         <div
-          class="w-8 h-8 bg-dark-blue rounded-full opacity-50 flex items-center justify-center cursor-pointer"
+          class="w-8 h-8 rounded-full bg-opacity-50 flex items-center justify-center cursor-pointer z-30"
+          [ngClass]="{
+            'bg-dark-blue': !isBookmarkHovered,
+            'bg-pure-white': isBookmarkHovered,
+          }"
           (click)="toggleBookmark()"
+          (mouseenter)="isBookmarkHovered = true"
+          (mouseleave)="isBookmarkHovered = false"
         >
           <!-- svgs for the bookmarks -->
           <img
-            *ngIf="!mediaItems[0]?.isBookmarked"
+            *ngIf="!isBookmarked && !isBookmarkHovered"
             src="assets/icon-bookmark-empty.svg"
             alt="icon-bookmark-empty"
           />
           <img
-            *ngIf="mediaItems[0]?.isBookmarked"
+            *ngIf="isBookmarked && !isBookmarkHovered"
             src="assets/icon-bookmark-full.svg"
+            alt="icon-bookmark-full"
+          />
+          <img
+            *ngIf="isBookmarkHovered"
+            src="assets/icon-bookmark-hover.svg"
             alt="icon-bookmark-full"
           />
         </div>
       </div>
       <!-- div for showing the movie details -->
       <div
-        class="bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.75)] h-[50%] w-full absolute rounded-lg left-0 bottom-[0%] flex-grow flex items-end z-20 p-4 md:p-6"
+        class="bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.75)] h-[50%] w-full absolute rounded-lg left-0 bottom-[0%] flex-grow flex items-end p-4 md:p-6 z-30"
         *ngIf="isTrending"
       >
         <div class="flex flex-col gap-[6px]">
@@ -76,6 +89,23 @@
             >
               Lone Heart
             </p>
+          </div>
+        </div>
+      </div>
+      <!-- div to be shown when isHovered is true -->
+      <div
+        class="w-full h-full absolute top-0 left-0 rounded-lg flex items-center justify-center"
+        [ngClass]="{'bg-black bg-opacity-50': isHovered}"
+      >
+        <div
+          *ngIf="isHovered"
+          class="bg-pure-white bg-opacity-25 rounded-[28.5px] inline-flex items-center p-[9px] pr-6 z-30"
+        >
+          <div class="flex items-center gap-[19px]">
+            <img src="assets/icon-play.svg" alt="icon-play" />
+            <div>
+              <p class="text-heading-xs text-white">Play</p>
+            </div>
           </div>
         </div>
       </div>

@@ -13,6 +13,8 @@ export class BookmarkComponent implements OnInit {
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
   isTrending: boolean = false;
+  isHovered: boolean = false;
+  isBookmarkHovered: boolean = false;
 
   constructor(private mediaService: MediaService) {}
 
