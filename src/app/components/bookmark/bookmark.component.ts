@@ -12,7 +12,7 @@ export class BookmarkComponent implements OnInit {
   firstMediaItem$!: Observable<MediaItem[]>;
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
-  isTrending: boolean = false;
+  isTrending: boolean = true;
   isHovered: boolean = false;
   isBookmarkHovered: boolean = false;
 
