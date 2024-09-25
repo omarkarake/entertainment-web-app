@@ -9,7 +9,8 @@
       }"
       [ngStyle]="{
         'background-image': getResponsiveBackgroundImage(
-          mediaItems[0].thumbnail
+          mediaItems[0].thumbnail,
+          isTrending
         )
       }"
       aria-label="First media item background"
@@ -35,7 +36,7 @@
       </div>
       <!-- div for showing the movie details -->
       <div
-        class="bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.75)] h-[50%] w-full absolute left-0 bottom-[0%] flex-grow flex items-end z-20 p-4 md:p-6"
+        class="bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.75)] h-[50%] w-full absolute rounded-lg left-0 bottom-[0%] flex-grow flex items-end z-20 p-4 md:p-6"
         *ngIf="isTrending"
       >
         <div class="flex flex-col gap-[6px]">

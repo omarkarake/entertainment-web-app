@@ -30,17 +30,19 @@ export class BookmarkComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
-  // Function to return the appropriate background image URL based on screen size
-  getResponsiveBackgroundImage(thumbnail: any): string {
+  // Function to return the appropriate background image URL based on screen size and trending status
+  getResponsiveBackgroundImage(thumbnail: any, isTrending: boolean): string {
+    const imageSet = isTrending ? thumbnail.trending : thumbnail.regular;
+
     if (this.screenWidth < 768) {
       // Small screen (Mobile)
-      return `url(${thumbnail.regular.small})`;
+      return `url(${imageSet.small})`;
     } else if (this.screenWidth >= 768 && this.screenWidth < 1024) {
       // Medium screen (Tablet)
-      return `url(${thumbnail.regular.medium})`;
+      return `url(${imageSet.medium || imageSet.large})`;
     } else {
       // Large screen (Desktop)
-      return `url(${thumbnail.regular.large})`;
+      return `url(${imageSet.large})`;
     }
   }
 
