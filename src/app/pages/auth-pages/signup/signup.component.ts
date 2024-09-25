@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
-  ValidatorFn,
   Validators,
+  AbstractControl,
+  ValidatorFn,
 } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css',
+  styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export class SignupComponent {
     );
 
     this.signupForm.valueChanges.subscribe((value) => {
-      console.log('Form value:', value);
+      console.log(value);
     });
   }
 
@@ -49,6 +50,7 @@ export class SignupComponent {
   }
 
   // Submit function
+  // Submit function
   onSubmit(): void {
     if (this.signupForm.valid) {
       const { email, password } = this.signupForm.value;
@@ -58,8 +60,21 @@ export class SignupComponent {
         }
       });
     } else {
-      // Handle invalid form
-      console.log('Form is invalid');
+      // Log validation errors, including password mismatch
+      if (this.signupForm.hasError('passwordMismatch')) {
+        console.log('Password mismatch error: Passwords do not match.');
+      }
+      this.logValidationErrors();
+    }
+  }
+
+  // Method to log validation errors in the console
+  logValidationErrors(): void {
+    const controls = this.signupForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        console.log(`${name} is invalid`, controls[name].errors);
+      }
     }
   }
 
@@ -76,5 +91,10 @@ export class SignupComponent {
   // Getter for repeat password control
   get repeatPasswordControl(): FormControl {
     return this.signupForm.get('repeatPassword') as FormControl;
+  }
+
+  // Getter to show if passwords mismatch
+  get passwordMismatch(): boolean {
+    return this.signupForm.hasError('passwordMismatch');
   }
 }

@@ -10,29 +10,30 @@
     <p class="text-heading-l text-pure-white">Sign Up</p>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="flex flex-col gap-6">
+        <!-- Email Input -->
         <app-input
           [placeholder]="'Email address'"
           [control]="emailControl"
-          [isErrored]="!!(emailControl.invalid && emailControl.touched)"
         ></app-input>
+
+        <!-- Password Input -->
         <app-input
           [placeholder]="'Password'"
           [control]="passwordControl"
           [type]="'password'"
-          [isErrored]="!!(passwordControl.invalid && passwordControl.touched)"
         ></app-input>
+
+        <!-- Repeat Password Input -->
         <app-input
           [placeholder]="'Repeat password'"
           [control]="repeatPasswordControl"
           [type]="'password'"
-          [isErrored]="
-            !!(repeatPasswordControl.invalid && repeatPasswordControl.touched)
-          "
         ></app-input>
       </div>
+
       <div class="flex flex-col gap-6 mt-6">
-        <button type="submit" class="btn btn-primary w-full">
-          Create an account
+        <button type="submit">
+          <app-button [text]="'Login to your account'"></app-button>
         </button>
         <div class="flex items-center justify-center gap-[10px]">
           <div>

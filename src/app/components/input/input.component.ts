@@ -21,7 +21,6 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = 'Type here...'; // Placeholder for the input
   @Input() control: FormControl = new FormControl(''); // Reactive form control
   @Input() type: string = 'text'; // Input type
-  @Input() isErrored: boolean = false; // Error state
 
   isTyping: boolean = false;
   value: string = '';
@@ -76,4 +75,20 @@ export class InputComponent implements ControlValueAccessor {
       this.control.enable();
     }
   }
+
+  // Getter to show the appropriate error message
+  getErrorMessage(): string {
+    if (this.control.hasError('required')) {
+      return 'Can’t be empty';
+    } else if (this.control.hasError('email')) {
+      return 'Invalid email address';
+    } else if (this.control.hasError('minlength')) {
+      const minLength = this.control.getError('minlength')?.requiredLength;
+      return `Password must be at least ${minLength} characters.`;
+    } else if (this.control.hasError('passwordMismatch')) {
+      return 'Passwords do not match';
+    }
+    return '';
+  }
 }
+

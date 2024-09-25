@@ -1,9 +1,16 @@
 <div
   class="h-[37px] pb-[4px] border-b-[1px] border-graish-blue pt-1 w-full flex pl-4"
-  [ngClass]="{ 'border-pure-white': isTyping, 'border-red': isErrored }"
+  [ngClass]="{
+    'border-pure-white': isTyping,
+    'border-red': control.invalid && control.touched
+  }"
 >
   <input
-    class="text-pure-white w-[60%] text-body-m md: font-light outline-none border-none bg-transparent focus:caret-red"
+    class="text-pure-white text-body-m md: font-light outline-none border-none bg-transparent focus:caret-red"
+    [ngClass]="{
+      'w-[60%]': !(control.invalid && control.touched),
+      'w-[20%]': control.invalid && control.touched
+    }"
     [placeholder]="placeholder"
     [formControl]="control"
     (blur)="isTypingOutput()"
@@ -12,9 +19,13 @@
     type="{{ type }}"
   />
   <div
-    class="flex flex-col justify-center items-end w-[40%]"
-    *ngIf="isErrored"
+    class="flex flex-col justify-center items-end"
+    [ngClass]="{
+      'w-[40%]': !(control.invalid && control.touched),
+      'w-[80%]': control.invalid && control.touched
+    }"
+    *ngIf="control.invalid && control.touched"
   >
-    <p class="text-body-s text-red leading-[0px]">Can’t be empty</p>
+    <p class="text-body-s text-red leading-[0px]">{{ getErrorMessage() }}</p>
   </div>
 </div>
