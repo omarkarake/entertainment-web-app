@@ -8,12 +8,12 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
-    // Call your login method from the auth service
+  signup() {
+    // Call your signup method from the auth service
     this.authService.login().subscribe((response) => {
       if (response.success) {
         // On successful login, redirect to home
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       }
     });
   }

@@ -1,22 +1,31 @@
-<div class="flex flex-col items-center pt-12 md:pt-[88px] lg-[78px] gap-[58px] md:gap-[72px] lg:gap-[82px]">
+<div
+  class="flex flex-col items-center pt-12 md:pt-[88px] lg:pt-[78px] gap-[58px] md:gap-[72px] lg:gap-[82px]"
+>
   <div>
     <img src="assets/logo.svg" class="w-8 h-[25px]" alt="logo" />
   </div>
   <div
     class="w-[90%] md:w-[400px] mx-auto bg-semi-dark-blue rounded-[10px] px-6 pt-6 pb-[32px] md:p-[32px] flex flex-col gap-10"
   >
-    <p class="text-heading-l text-pure-white">Sign Up</p>
+    <p class="text-heading-l text-pure-white">Login</p>
     <div class="flex flex-col gap-6">
-        <app-input [placeholder]="'Email address'"></app-input>
-        <app-input [placeholder]="'Password'"></app-input>
+      <app-input [placeholder]="'Email address'"></app-input>
+      <app-input [placeholder]="'Password'"></app-input>
     </div>
     <div class="flex flex-col gap-6">
-      <app-button [text]="'Create an account'"></app-button>
+      <app-button [text]="'Login to your account'"></app-button>
       <div class="flex items-center justify-center gap-[10px]">
         <div>
-          <p class="text-body-m text-pure-white">Login to your account</p>
+          <p class="text-body-m text-pure-white">Don’t have an account?</p>
         </div>
-        <div><p class="text-body-m text-red">Sign Up</p></div>
+        <div>
+            <a
+            [routerLink]="['/auth/signup']"
+            class="text-body-m text-red cursor-pointer"
+          >
+            Sign up
+          </a>
+        </div>
       </div>
     </div>
   </div>
