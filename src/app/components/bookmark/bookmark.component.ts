@@ -12,6 +12,7 @@ export class BookmarkComponent implements OnInit {
   firstMediaItem$!: Observable<MediaItem[]>;
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
+  isTrending: boolean = false;
 
   constructor(private mediaService: MediaService) {}
 
