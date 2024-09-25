@@ -8,6 +8,11 @@ import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MainComponent } from './components/main/main.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,12 @@ import { HttpClientModule } from '@angular/common/http';
     SearchComponent,
     InputComponent,
     ButtonComponent,
-    BookmarkComponent
+    BookmarkComponent,
+    NavigationComponent,
+    HeaderComponent,
+    MainComponent,
+    LayoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
