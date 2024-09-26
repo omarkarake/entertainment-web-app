@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,11 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -44,9 +49,11 @@ export class SignupComponent implements OnInit {
       this.authService.signup(email, password).subscribe((res) => {
         if (res.success) {
           console.log('Signup successful');
-          this.router.navigate(['/home']);
+          this.toastr.error('Signup successful');
+          this.router.navigate(['/login']); // Redirect to login after successful signup
         } else {
           console.log('Signup failed:', res.message);
+          this.toastr.error('Signup failed:', res.message);
         }
       });
     } else {
