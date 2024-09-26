@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeRoutingModule),
+      import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: 'auth/login' }, // Wildcard route for invalid URLs

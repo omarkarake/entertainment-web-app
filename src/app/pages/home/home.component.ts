@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
-import { MediaItem } from '../../models/model.mediaItem';
+import { MediaItem } from '../../models/mediaItem.model';
 import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({

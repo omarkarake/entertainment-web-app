@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { ErrorHandlingService } from '../error/error-handling.service';
-import { MediaItem } from '../../models/model.mediaItem';
+import { MediaItem } from '../../models/mediaItem.model';
 
 @Injectable({
   providedIn: 'root',

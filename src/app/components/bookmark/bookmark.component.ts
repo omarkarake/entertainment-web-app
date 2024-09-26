@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
-import { MediaItem } from '../../models/model.mediaItem';
+import { MediaItem } from '../../models/mediaItem.model';
 import { Observable } from 'rxjs';
 
 @Component({
