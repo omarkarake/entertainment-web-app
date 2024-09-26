@@ -1,5 +1,5 @@
 import { TvSeriesComponent } from './pages/home/tv-series/tv-series/tv-series.component';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { BookmarkedComponent } from './pages/home/bookmarked/bookmarked/bookmarked.component';
 import { MoviesComponent } from './pages/home/movies/movies/movies.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,10 @@ import { MoviesComponent } from './pages/home/movies/movies/movies.component';
     NavigationComponent,
     HeaderComponent,
     MainComponent,
-    HomeComponent, 
+    HomeComponent,
     BookmarkedComponent,
     MoviesComponent,
-    TvSeriesComponent
+    TvSeriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,8 +41,18 @@ import { MoviesComponent } from './pages/home/movies/movies/movies.component';
       timeOut: 3000, // Customize the time for each notification
       preventDuplicates: true,
     }), // ToastrModule added
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+      connectInZone: true,
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
