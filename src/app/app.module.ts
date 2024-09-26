@@ -17,6 +17,10 @@ import { BookmarkedComponent } from './pages/home/bookmarked/bookmarked/bookmark
 import { MoviesComponent } from './pages/home/movies/movies/movies.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { mediaReducer } from './store/reducers/media.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { MediaEffects } from './store/effects/media.effects';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       timeOut: 3000, // Customize the time for each notification
       preventDuplicates: true,
     }), // ToastrModule added
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ media: mediaReducer }), // Register the media reducer
+    EffectsModule.forRoot([MediaEffects]), // Register the media effects
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
