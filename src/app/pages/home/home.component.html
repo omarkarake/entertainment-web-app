@@ -1,1 +1,104 @@
-<app-layout></app-layout>
+<div class="flex flex-col lg:flex-row w-full min-h-screen relative md:p-[25px]">
+  <!-- navigation for desktop and nav header for mobile -->
+  <div
+    class="p-4 md:p-[27px] lg:w-[80px] bg-semi-dark-blue flex lg:flex-col items-center justify-between sticky md:rounded-[10px] top-0 left-0 w-full z-10"
+  >
+    <div>
+      <img
+        src="assets/logo.svg"
+        class="w-[25px] h-5 md:w-8 md:h-[25px]"
+        alt="logo"
+      />
+    </div>
+    <div
+      class="flex items-center lg:flex-col gap-6 md:gap-8 lg:gap-10 lg:absolute lg:top-[136px]"
+    >
+      <!-- Home Icon -->
+      <div (click)="setActiveFeature('main')" class="cursor-pointer">
+        <img
+          *ngIf="activeFeature === 'main'"
+          src="assets/icon-nav-home-activated.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-home-activated"
+        />
+        <img
+          *ngIf="activeFeature !== 'main'"
+          src="assets/icon-nav-home.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-home"
+        />
+      </div>
+
+      <!-- Movies Icon -->
+      <div (click)="setActiveFeature('movies')" class="cursor-pointer">
+        <img
+          *ngIf="activeFeature === 'movies'"
+          src="assets/icon-nav-movies-activated.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-movies-activated"
+        />
+        <img
+          *ngIf="activeFeature !== 'movies'"
+          src="assets/icon-nav-movies.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-movies"
+        />
+      </div>
+
+      <!-- TV Series Icon -->
+      <div (click)="setActiveFeature('tv-series')" class="cursor-pointer">
+        <img
+          *ngIf="activeFeature === 'tv-series'"
+          src="assets/icon-nav-tv-series-activated.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-tv-series-activated"
+        />
+        <img
+          *ngIf="activeFeature !== 'tv-series'"
+          src="assets/icon-nav-tv-series.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-tv-series"
+        />
+      </div>
+
+      <!-- Bookmarked Icon -->
+      <div (click)="setActiveFeature('bookmarked')" class="cursor-pointer">
+        <img
+          *ngIf="activeFeature === 'bookmarked'"
+          src="assets/icon-nav-bookmark-activated.svg"
+          class="w-[13px] h-4 md:w-4 md:h-[20px]"
+          alt="icon-nav-bookmark-activated"
+        />
+        <img
+          *ngIf="activeFeature !== 'bookmarked'"
+          src="assets/icon-nav-bookmark.svg"
+          class="w-[13px] h-4 md:w-4 md:h-[20px]"
+          alt="icon-nav-bookmark"
+        />
+      </div>
+    </div>
+    <div class="w-6 h-6 rounded-full p-[2px] bg-pure-white">
+      <img
+        src="assets/image-avatar.png"
+        class="w-full h-full"
+        alt="image-avatar"
+      />
+    </div>
+  </div>
+
+  <!-- main content -->
+  <div
+    class="px-4 mt-[10px] lg:mt-0 md:mt-[33px] lg:flex-1 lg:max-h-[calc(100vh-50px)] lg:overflow-y-auto custom-scroll"
+  >
+    <!-- main header search -->
+    <div class="sticky top-[55px] md:top-[78px] lg:top-[-1px] z-20">
+      <app-search></app-search>
+    </div>
+
+    <!-- Render components based on active feature -->
+    <app-main *ngIf="activeFeature === 'main'"></app-main>
+    <app-movies *ngIf="activeFeature === 'movies'"></app-movies>
+    <app-tv-series *ngIf="activeFeature === 'tv-series'"></app-tv-series>
+    <app-bookmarked *ngIf="activeFeature === 'bookmarked'"></app-bookmarked>
+  </div>
+</div>

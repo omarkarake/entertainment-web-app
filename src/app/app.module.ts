@@ -1,3 +1,4 @@
+import { TvSeriesComponent } from './pages/home/tv-series/tv-series/tv-series.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,10 +10,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
-import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { BookmarkedComponent } from './pages/home/bookmarked/bookmarked/bookmarked.component';
+import { MoviesComponent } from './pages/home/movies/movies/movies.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +24,10 @@ import { ToastrModule } from 'ngx-toastr';
     NavigationComponent,
     HeaderComponent,
     MainComponent,
-    LayoutComponent,
-    HomeComponent
+    HomeComponent, 
+    BookmarkedComponent,
+    MoviesComponent,
+    TvSeriesComponent
   ],
   imports: [
     BrowserModule,

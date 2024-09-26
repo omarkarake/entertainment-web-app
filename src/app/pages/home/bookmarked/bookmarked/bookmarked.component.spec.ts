@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
+import { BookmarkedComponent } from './bookmarked.component';
 
-describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+describe('BookmarkedComponent', () => {
+  let component: BookmarkedComponent;
+  let fixture: ComponentFixture<BookmarkedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LayoutComponent]
+      declarations: [BookmarkedComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(BookmarkedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

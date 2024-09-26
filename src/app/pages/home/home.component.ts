@@ -1,16 +1,26 @@
 import { Component } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
 import { MediaItem } from '../../models/model.mediaItem';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  constructor(private mediaService: MediaService) {}
+  activeFeature: string = 'main';
+
+  constructor(
+    private navigationService: NavigationService,
+    private mediaService: MediaService
+  ) {}
 
   ngOnInit(): void {
+    // Subscribe to the active feature
+    this.navigationService.activeFeature$.subscribe((feature) => {
+      this.activeFeature = feature;
+    });
     this.mediaService.getMediaItems().subscribe(
       (data: MediaItem[]) => {
         console.log('Media items:', data);
@@ -20,6 +30,9 @@ export class HomeComponent {
       }
     );
   }
+
+  // Update the active feature on icon click
+  setActiveFeature(feature: string) {
+    this.navigationService.setActiveFeature(feature);
+  }
 }
-
-
