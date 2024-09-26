@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  AbstractControl,
-  ValidatorFn,
-} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -20,50 +14,42 @@ export class SignupComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-        ]),
-        repeatPassword: new FormControl('', [Validators.required]),
-      },
-      { validators: this.passwordsMatchValidator() }
-    );
-
-    this.signupForm.valueChanges.subscribe((value) => {
-      console.log(value);
+    this.signupForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      repeatPassword: new FormControl('', [Validators.required]),
     });
   }
 
   // Custom validator to ensure passwords match
-  passwordsMatchValidator(): ValidatorFn {
-    return (form: AbstractControl): { [key: string]: boolean } | null => {
-      const password = form.get('password')?.value;
-      const repeatPassword = form.get('repeatPassword')?.value;
-      if (password !== repeatPassword) {
-        return { passwordMismatch: true };
-      }
-      return null;
-    };
+  passwordsMatchValidator(): { [key: string]: boolean } | null {
+    const password = this.signupForm.get('password')?.value;
+    const repeatPassword = this.signupForm.get('repeatPassword')?.value;
+
+    if (password !== repeatPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
   }
 
-  // Submit function
   // Submit function
   onSubmit(): void {
     if (this.signupForm.valid) {
       const { email, password } = this.signupForm.value;
+
+      // Use the new signup method in AuthService
       this.authService.signup(email, password).subscribe((res) => {
         if (res.success) {
+          console.log('Signup successful');
           this.router.navigate(['/home']);
+        } else {
+          console.log('Signup failed:', res.message);
         }
       });
     } else {
-      // Log validation errors, including password mismatch
-      if (this.signupForm.hasError('passwordMismatch')) {
-        console.log('Password mismatch error: Passwords do not match.');
-      }
       this.logValidationErrors();
     }
   }
@@ -91,10 +77,5 @@ export class SignupComponent implements OnInit {
   // Getter for repeat password control
   get repeatPasswordControl(): FormControl {
     return this.signupForm.get('repeatPassword') as FormControl;
-  }
-
-  // Getter to show if passwords mismatch
-  get passwordMismatch(): boolean {
-    return this.signupForm.hasError('passwordMismatch');
   }
 }

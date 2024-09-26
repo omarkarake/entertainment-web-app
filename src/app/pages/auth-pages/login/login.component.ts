@@ -16,7 +16,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
 
     this.loginForm.valueChanges.subscribe((value) => {
@@ -29,12 +32,15 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log('Form value:', this.loginForm.value);
-      // this.authService.login(email, password).subscribe((res) => {
-      //   if (res.success) {
-      //     console.log('Login successful');
-      //     this.router.navigate(['/home']);
-      //   }
-      // });
+
+      this.authService.login(email, password).subscribe((res) => {
+        if (res.success) {
+          console.log('Login successful');
+          this.router.navigate(['/home']); // Redirect to home after successful login
+        } else {
+          console.log('Login failed: Invalid credentials');
+        }
+      });
     } else {
       this.logValidationErrors();
     }
