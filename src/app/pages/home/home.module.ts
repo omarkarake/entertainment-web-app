@@ -8,6 +8,7 @@ import { BookmarkedComponent } from './bookmarked/bookmarked/bookmarked.componen
 import { MoviesComponent } from './movies/movies/movies.component';
 import { TvSeriesComponent } from './tv-series/tv-series/tv-series.component';
 import { CommonModule } from '@angular/common';
+import { BookmarkComponent } from '../../components/bookmark/bookmark.component';
 
 @NgModule({
   imports: [HomeRoutingModule, CommonModule],
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     BookmarkedComponent,
     MoviesComponent,
     TvSeriesComponent,
+    BookmarkComponent,
   ],
   bootstrap: [HomeComponent],
 })

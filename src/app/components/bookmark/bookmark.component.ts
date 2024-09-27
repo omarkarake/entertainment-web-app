@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
 import { MediaItem } from '../../models/mediaItem.model';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ export class BookmarkComponent implements OnInit {
   firstMediaItem$!: Observable<MediaItem[]>;
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
-  isTrending: boolean = true;
+  @Input() isTrending: boolean = true;
   isHovered: boolean = false;
   isBookmarkHovered: boolean = false;
 

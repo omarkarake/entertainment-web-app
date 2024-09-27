@@ -1,1 +1,31 @@
-<p class="text-heading-m text-pure-white">Main works!!!</p>
+<div class="lg:mt-3">
+  <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+    Trending
+  </p>
+  <div class="mt-4 flex items-center no-scrollbar gap-4">
+    <app-bookmark></app-bookmark>
+    <app-bookmark></app-bookmark>
+    <app-bookmark></app-bookmark>
+    <app-bookmark></app-bookmark>
+  </div>
+</div>
+
+<div class="lg:mt-3">
+  <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+    Recommended for you
+  </p>
+  <div class="mt-4 flex flex-row justify-between flex-wrap">
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+    <app-bookmark [isTrending]="false"></app-bookmark>
+  </div>
+</div>

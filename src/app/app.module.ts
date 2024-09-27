@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -22,7 +21,6 @@ import { SearchComponent } from './components/search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BookmarkComponent,
     NavigationComponent,
     HeaderComponent,
     HomeComponent,
