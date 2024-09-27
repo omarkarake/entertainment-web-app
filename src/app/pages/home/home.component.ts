@@ -1,3 +1,4 @@
+// home.component.ts
 import { Component } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
 import { MediaItem } from '../../models/mediaItem.model';
@@ -19,9 +20,8 @@ export class HomeComponent {
     private navigationService: NavigationService,
     private mediaService: MediaService,
     private store: Store<MediaState>
-  ) {
-  }
-  
+  ) {}
+
   ngOnInit(): void {
     // Subscribe to the active feature
     this.navigationService.activeFeature$.subscribe((feature) => {

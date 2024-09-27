@@ -1,43 +1,37 @@
-import { TvSeriesComponent } from './pages/home/tv-series/tv-series/tv-series.component';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SearchComponent } from './components/search/search.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MainComponent } from './components/main/main.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { BookmarkedComponent } from './pages/home/bookmarked/bookmarked/bookmarked.component';
-import { MoviesComponent } from './pages/home/movies/movies/movies.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { mediaReducer } from './store/reducers/media.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MediaEffects } from './store/effects/media.effects';
+import { CommonModule } from '@angular/common';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent,
     BookmarkComponent,
     NavigationComponent,
     HeaderComponent,
     HomeComponent,
-    MainComponent,
-    BookmarkedComponent,
-    MoviesComponent,
-    TvSeriesComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     HttpClientModule,
     BrowserAnimationsModule, // Required for Toastr animations
     ToastrModule.forRoot({

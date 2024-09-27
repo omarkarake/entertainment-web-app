@@ -1,3 +1,4 @@
+<!-- home.component.html -->
 <div class="flex flex-col lg:flex-row w-full min-h-screen relative md:p-[25px]">
   <!-- navigation for desktop and nav header for mobile -->
   <div
@@ -90,15 +91,10 @@
   <div
     class="px-4 mt-[10px] lg:mt-0 md:mt-[33px] lg:flex-1 lg:max-h-[calc(100vh-50px)] lg:overflow-y-auto custom-scroll"
   >
-    <!-- main header search -->
     <div class="sticky top-[55px] md:top-[78px] lg:top-[-1px] z-20">
       <app-search></app-search>
     </div>
-
-    <!-- Render components based on active feature -->
-    <app-main *ngIf="activeFeature === 'main'"></app-main>
-    <app-movies *ngIf="activeFeature === 'movies'"></app-movies>
-    <app-tv-series *ngIf="activeFeature === 'tv-series'"></app-tv-series>
-    <app-bookmarked *ngIf="activeFeature === 'bookmarked'"></app-bookmarked>
+    <!-- main header search -->
+    <router-outlet></router-outlet>
   </div>
 </div>
