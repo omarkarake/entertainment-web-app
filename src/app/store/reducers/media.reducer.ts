@@ -12,7 +12,7 @@ export interface MediaState extends EntityState<MediaItem> {
 
 // Create an entity adapter for media items
 export const adapter = createEntityAdapter<MediaItem>({
-  selectId: (mediaItem) => uuidv4(), // Generate UUID for each media item
+  selectId: (mediaItem: MediaItem) => uuidv4(), // Generate UUID for each media item
 });
 
 export const initialState: MediaState = adapter.getInitialState({
@@ -31,4 +31,5 @@ export const mediaReducer = createReducer(
   }))
 );
 
+// Create selectors
 export const { selectAll } = adapter.getSelectors();

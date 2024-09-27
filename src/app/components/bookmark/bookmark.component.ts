@@ -20,9 +20,9 @@ export class BookmarkComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstMediaItem$ = this.mediaService.firstMediaItem$;
-    this.firstMediaItem$.subscribe((data: MediaItem[]) => {
-      console.log('First media item:', data[0]);
-    });
+    // this.firstMediaItem$.subscribe((data: MediaItem[]) => {
+    //   console.log('First media item:', data[0]);
+    // });
     this.onResize();
   }
 
