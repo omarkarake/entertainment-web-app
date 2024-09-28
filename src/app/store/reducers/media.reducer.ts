@@ -42,8 +42,10 @@ export const mediaReducer = createReducer(
   on(MediaActions.searchAllItems, (state, { searchTerm }) => ({
     ...state,
     searchResults: state.entities
-      ? Object.values(state.entities).filter((item): item is MediaItem =>
-          item !== undefined && item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ? Object.values(state.entities).filter(
+          (item): item is MediaItem =>
+            item !== undefined &&
+            item.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : [],
   })),
@@ -83,7 +85,21 @@ export const mediaReducer = createReducer(
   on(MediaActions.updateSearchInput, (state, { searchInput }) => ({
     ...state,
     searchInput,
-  }))
+  })),
+
+  on(MediaActions.toggleBookmark, (state, { id }) => {
+    const entity = state.entities[id];
+    if (entity) {
+      return adapter.updateOne(
+        {
+          id,
+          changes: { isBookmarked: !entity.isBookmarked },
+        },
+        state
+      );
+    }
+    return state;
+  })
 );
 
 // Create selectors

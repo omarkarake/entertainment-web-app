@@ -28,7 +28,7 @@
             'bg-dark-blue': !isBookmarkHovered,
             'bg-pure-white': isBookmarkHovered,
           }"
-          (click)="toggleBookmark()"
+          (click)="toggleBookmark(mediaItem.id!)"
           (mouseenter)="isBookmarkHovered = true"
           (mouseleave)="isBookmarkHovered = false"
         >
@@ -178,7 +178,7 @@
             'bg-dark-blue': !isBookmarkHovered,
             'bg-pure-white': isBookmarkHovered,
           }"
-          (click)="toggleBookmark()"
+          (click)="toggleBookmark(mediaItem.id!)"
           (mouseenter)="isBookmarkHovered = true"
           (mouseleave)="isBookmarkHovered = false"
         >

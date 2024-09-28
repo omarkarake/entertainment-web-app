@@ -39,3 +39,8 @@ export const updateSearchInput = createAction(
   '[Media] Update Search Input',
   props<{ searchInput: string }>()
 );
+
+export const toggleBookmark = createAction(
+  '[Media] Toggle Bookmark',
+  props<{ id: string }>()
+);

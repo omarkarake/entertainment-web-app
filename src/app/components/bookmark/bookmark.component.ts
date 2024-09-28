@@ -2,6 +2,9 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
 import { MediaItem } from '../../models/mediaItem.model';
 import { Observable } from 'rxjs';
+import { MediaState } from '../../store/reducers/media.reducer';
+import { Store } from '@ngrx/store';
+import * as MediaActions from '../../store/actions/media.actions';
 
 @Component({
   selector: 'app-bookmark',
@@ -15,6 +18,8 @@ export class BookmarkComponent implements OnInit {
   isBookmarked: boolean = false;
   isHovered: boolean = false;
   isBookmarkHovered: boolean = false;
+
+  constructor(private store: Store<MediaState>) {}
 
   ngOnInit(): void {
     this.onResize();
@@ -42,7 +47,8 @@ export class BookmarkComponent implements OnInit {
     }
   }
 
-  toggleBookmark() {
+  toggleBookmark(id: string): void {
     this.isBookmarked = !this.isBookmarked;
+    this.store.dispatch(MediaActions.toggleBookmark({ id }));
   }
 }
