@@ -18,8 +18,9 @@ const routes: Routes = [
       { path: 'main', component: MainComponent },
       { path: 'bookmarked', component: BookmarkedComponent },
       { path: 'movies', component: MoviesComponent },
-      {path: 'tv-series', component: TvSeriesComponent},  
+      { path: 'tv-series', component: TvSeriesComponent },
     ],
+    canActivate: [AuthGuard],
   },
   // { path: '', component: HomeComponent, canActivate: [AuthGuard] }
 ];
