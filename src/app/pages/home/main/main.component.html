@@ -2,7 +2,7 @@
 
 <div
   *ngIf="
-    searchResults.length > 0 && searchText.length !== 0;
+    searchResults && searchText.length > 0;
     else noSearchResults
   "
 >
