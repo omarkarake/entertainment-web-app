@@ -1,1 +1,38 @@
-<p class="text-heading-m text-pure-white">Tv series work!!!</p>
+<div *ngIf="searchResults && searchText.length > 0; else noSearchResults">
+    <div class="lg:mt-3">
+      <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+        Found {{ searchResults.length }} results for '{{
+          selectSearchInput$ | async
+        }}'
+      </p>
+      <div
+        *ngIf="searchResults.length > 0"
+        class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+      >
+        <app-bookmark
+          *ngFor="let mediaItem of searchResults"
+          [mediaItem]="mediaItem"
+          [isTrendingForSearch]="true"
+        ></app-bookmark>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noSearchResults>
+    <div class="lg:mt-3">
+      <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+        TV Series
+      </p>
+      <div
+        *ngIf="tvShow$ | async as nonTrendingMediaItems"
+        class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+      >
+        <app-bookmark
+          *ngFor="let mediaItem of nonTrendingMediaItems"
+          [mediaItem]="mediaItem"
+          [isTrendingForSearch]="true"
+        ></app-bookmark>
+      </div>
+    </div>
+  </ng-template>
+  
