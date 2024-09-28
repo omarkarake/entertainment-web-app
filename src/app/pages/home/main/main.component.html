@@ -1,33 +1,51 @@
-<div class="lg:mt-3">
-  <p class="text-[20px] md:text-heading-l font-light text-pure-white">
-    Trending
-  </p>
-  <div
-    *ngIf="trendingMediaItems$ | async as mediaItems"
-    class="mt-4 flex items-center no-scrollbar gap-4"
-  >
-    <!-- <app-bookmark
-      *ngIf="trendingMediaItems$ | async as mediaItems"
-      [mediaItems]="mediaItems"
-    ></app-bookmark> -->
-    <app-bookmark
-      *ngFor="let mediaItem of mediaItems"
-      [mediaItem]="mediaItem"
-    ></app-bookmark>
+<!-- main.component.html -->
+
+<div *ngIf="searchResults$ | async as searchResults; else noSearchResults">
+  <div class="lg:mt-3">
+    <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+      Found {{ searchResults.length }} results for
+       <!-- '{{ searchControl.value }}' -->
+    </p>
+    <div
+      *ngIf="searchResults.length > 0"
+      class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+    >
+      <app-bookmark
+        *ngFor="let mediaItem of searchResults"
+        [mediaItem]="mediaItem"
+      ></app-bookmark>
+    </div>
   </div>
 </div>
 
-<div class="lg:mt-3">
-  <p class="text-[20px] md:text-heading-l font-light text-pure-white">
-    Recommended for you
-  </p>
-  <div
-    *ngIf="nonTrendingMediaItems$ | async as nonTrendingMediaItems"
-    class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
-  >
-    <app-bookmark
-      *ngFor="let mediaItem of nonTrendingMediaItems"
-      [mediaItem]="mediaItem"
-    ></app-bookmark>
+<ng-template #noSearchResults>
+  <div class="lg:mt-3">
+    <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+      Trending
+    </p>
+    <div
+      *ngIf="trendingMediaItems$ | async as mediaItems"
+      class="mt-4 flex items-center no-scrollbar gap-4"
+    >
+      <app-bookmark
+        *ngFor="let mediaItem of mediaItems"
+        [mediaItem]="mediaItem"
+      ></app-bookmark>
+    </div>
   </div>
-</div>
+
+  <div class="lg:mt-3">
+    <p class="text-[20px] md:text-heading-l font-light text-pure-white">
+      Recommended for you
+    </p>
+    <div
+      *ngIf="nonTrendingMediaItems$ | async as nonTrendingMediaItems"
+      class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+    >
+      <app-bookmark
+        *ngFor="let mediaItem of nonTrendingMediaItems"
+        [mediaItem]="mediaItem"
+      ></app-bookmark>
+    </div>
+  </div>
+</ng-template>

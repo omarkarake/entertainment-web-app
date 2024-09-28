@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaState } from '../../../store/reducers/media.reducer';
 import { Store } from '@ngrx/store';
-import { selectNonTrendingMoviesAndTVShows, selectTrendingMoviesAndTVShows } from '../../../store/selectors/media.selectors';
+import { selectNonTrendingMoviesAndTVShows, selectSearchResults, selectTrendingMoviesAndTVShows } from '../../../store/selectors/media.selectors';
 import { MediaItem } from '../../../models/mediaItem.model';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class MainComponent implements OnInit {
   trendingMediaItems$!: Observable<MediaItem[]>;
   nonTrendingMediaItems$!: Observable<MediaItem[]>;
+  searchResults$!: Observable<MediaItem[]>;
 
   constructor(private store: Store<MediaState>) {}
 
@@ -26,5 +27,8 @@ export class MainComponent implements OnInit {
     this.nonTrendingMediaItems$ = this.store.select(
       selectNonTrendingMoviesAndTVShows
     );
+
+    // Select search results
+    this.searchResults$ = this.store.select(selectSearchResults);
   }
 }
