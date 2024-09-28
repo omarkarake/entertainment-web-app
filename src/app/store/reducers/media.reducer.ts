@@ -9,6 +9,7 @@ export interface MediaState extends EntityState<MediaItem> {
   loaded: boolean;
   error: string | null;
   searchResults: MediaItem[];
+  searchInput: string; // Add searchInput property
 }
 
 // Create an entity adapter for media items
@@ -20,6 +21,7 @@ export const initialState: MediaState = adapter.getInitialState({
   loaded: false,
   error: null,
   searchResults: [],
+  searchInput: '', // Initialize searchInput
 });
 
 export const mediaReducer = createReducer(
@@ -72,6 +74,11 @@ export const mediaReducer = createReducer(
             item.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : [],
+  })),
+
+  on(MediaActions.updateSearchInput, (state, { searchInput }) => ({
+    ...state,
+    searchInput,
   }))
 );
 

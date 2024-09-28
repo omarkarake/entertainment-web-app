@@ -1,10 +1,16 @@
 <!-- main.component.html -->
 
-<div *ngIf="searchResults$ | async as searchResults; else noSearchResults">
+<div
+  *ngIf="
+    searchResults.length > 0 && searchText.length !== 0;
+    else noSearchResults
+  "
+>
   <div class="lg:mt-3">
     <p class="text-[20px] md:text-heading-l font-light text-pure-white">
-      Found {{ searchResults.length }} results for
-       <!-- '{{ searchControl.value }}' -->
+      Found {{ searchResults.length }} results for '{{
+        selectSearchInput$ | async
+      }}'
     </p>
     <div
       *ngIf="searchResults.length > 0"

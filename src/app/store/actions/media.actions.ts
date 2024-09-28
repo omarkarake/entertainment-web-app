@@ -34,3 +34,8 @@ export const searchBookmarkedItems = createAction(
   '[Media] Search Bookmarked Items',
   props<{ searchTerm: string }>()
 );
+
+export const updateSearchInput = createAction(
+  '[Media] Update Search Input',
+  props<{ searchInput: string }>()
+);

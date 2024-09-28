@@ -42,6 +42,7 @@ export class SearchComponent implements OnInit {
       )
       .subscribe((searchValue: string) => {
         console.log('Search Value:', searchValue); // Log the search value
+        this.store.dispatch(MediaActions.updateSearchInput({ searchInput: searchValue }));
         if (searchValue.length >= 1) {
           this.dispatchSearchAction(searchValue);
         }

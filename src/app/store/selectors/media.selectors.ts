@@ -79,6 +79,12 @@ export const selectSearchResults = createSelector(
   (state: MediaState) => state.searchResults
 );
 
+// Selector for search input
+export const selectSearchInput = createSelector(
+  selectMediaState,
+  (state: MediaState) => state.searchInput
+);
+
 // // Dynamic Search Selectors
 // export const selectAllBySearchTerm = (searchTerm: string) =>
 //   createSelector(selectAll, (mediaItems: MediaItem[]) =>
