@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaState } from '../../../store/reducers/media.reducer';
 import { Store } from '@ngrx/store';
-import { selectTrendingMoviesAndTVShows } from '../../../store/selectors/media.selectors';
+import { selectNonTrendingMoviesAndTVShows, selectTrendingMoviesAndTVShows } from '../../../store/selectors/media.selectors';
 import { MediaItem } from '../../../models/mediaItem.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -10,17 +11,20 @@ import { MediaItem } from '../../../models/mediaItem.model';
   styleUrl: './main.component.css',
 })
 export class MainComponent implements OnInit {
+  trendingMediaItems$!: Observable<MediaItem[]>;
+  nonTrendingMediaItems$!: Observable<MediaItem[]>;
+
   constructor(private store: Store<MediaState>) {}
 
   ngOnInit(): void {
+    // Select trending movies and TV shows
+    this.trendingMediaItems$ = this.store.select(
+      selectTrendingMoviesAndTVShows
+    );
+
     // For movies and TV shows that are trending
-    this.store.select(selectTrendingMoviesAndTVShows).subscribe({
-      next: (trendingItems: MediaItem[]) => {
-        console.log('Trending items:', trendingItems);
-      },
-      error: (err) => {
-        console.error('Error fetching trending items:', err);
-      },
-    });
+    this.nonTrendingMediaItems$ = this.store.select(
+      selectNonTrendingMoviesAndTVShows
+    );
   }
 }

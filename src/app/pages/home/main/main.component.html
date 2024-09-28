@@ -2,11 +2,18 @@
   <p class="text-[20px] md:text-heading-l font-light text-pure-white">
     Trending
   </p>
-  <div class="mt-4 flex items-center no-scrollbar gap-4">
-    <app-bookmark></app-bookmark>
-    <app-bookmark></app-bookmark>
-    <app-bookmark></app-bookmark>
-    <app-bookmark></app-bookmark>
+  <div
+    *ngIf="trendingMediaItems$ | async as mediaItems"
+    class="mt-4 flex items-center no-scrollbar gap-4"
+  >
+    <!-- <app-bookmark
+      *ngIf="trendingMediaItems$ | async as mediaItems"
+      [mediaItems]="mediaItems"
+    ></app-bookmark> -->
+    <app-bookmark
+      *ngFor="let mediaItem of mediaItems"
+      [mediaItem]="mediaItem"
+    ></app-bookmark>
   </div>
 </div>
 
@@ -14,18 +21,13 @@
   <p class="text-[20px] md:text-heading-l font-light text-pure-white">
     Recommended for you
   </p>
-  <div class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap">
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
-    <app-bookmark [isTrending]="false"></app-bookmark>
+  <div
+    *ngIf="nonTrendingMediaItems$ | async as nonTrendingMediaItems"
+    class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+  >
+    <app-bookmark
+      *ngFor="let mediaItem of nonTrendingMediaItems"
+      [mediaItem]="mediaItem"
+    ></app-bookmark>
   </div>
 </div>

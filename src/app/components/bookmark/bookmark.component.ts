@@ -9,20 +9,13 @@ import { Observable } from 'rxjs';
   styleUrl: './bookmark.component.css',
 })
 export class BookmarkComponent implements OnInit {
-  firstMediaItem$!: Observable<MediaItem[]>;
+  @Input() mediaItem!: MediaItem;
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
-  @Input() isTrending: boolean = true;
   isHovered: boolean = false;
   isBookmarkHovered: boolean = false;
 
-  constructor(private mediaService: MediaService) {}
-
   ngOnInit(): void {
-    this.firstMediaItem$ = this.mediaService.firstMediaItem$;
-    // this.firstMediaItem$.subscribe((data: MediaItem[]) => {
-    //   console.log('First media item:', data[0]);
-    // });
     this.onResize();
   }
 

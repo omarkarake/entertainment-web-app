@@ -1,22 +1,22 @@
 <!-- bookmark.component.html -->
-<div *ngIf="firstMediaItem$ | async as mediaItems" class="">
-  <div *ngIf="mediaItems.length > 0" class="flex flex-col gap-[10px]">
+<div>
+  <div *ngIf="mediaItem" class="flex flex-col gap-[10px]">
     <div
       class="bookmark-thumbnail bg-cover bg-center rounded-lg relative cursor-pointer group overflow-hidden"
       [ngClass]="{
-        'w-[240px] h-[140px] md:w-[470px] md:h-[230px] p-[8px] md:p-0 md:px-[24px] md:py-[16px]': isTrending,
-        'w-[164px] h-[110px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px] p-2 md:p-4': !isTrending,
+        'w-[240px] h-[140px] md:w-[470px] md:h-[230px] p-[8px] md:p-0 md:px-[24px] md:py-[16px]': mediaItem.isTrending,
+        'w-[164px] h-[110px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px] p-2 md:p-4': !mediaItem.isTrending,
       }"
       (mouseenter)="isHovered = true"
       (mouseleave)="isHovered = false"
       aria-label="First media item background"
     >
       <div
-      class="w-full h-full absolute top-0 left-0 rounded-lg bg-cover bg-center duration-300 lg:group-hover:scale-105"
+        class="w-full h-full absolute top-0 left-0 rounded-lg bg-cover bg-center duration-300 lg:group-hover:scale-105"
         [ngStyle]="{
           'background-image': getResponsiveBackgroundImage(
-            mediaItems[0].thumbnail,
-            isTrending
+            mediaItem.thumbnail,
+            mediaItem.isTrending
           )
         }"
       ></div>
@@ -34,12 +34,12 @@
         >
           <!-- svgs for the bookmarks -->
           <img
-            *ngIf="!isBookmarked && !isBookmarkHovered"
+            *ngIf="!mediaItem.isBookmarked && !isBookmarkHovered"
             src="assets/icon-bookmark-empty.svg"
             alt="icon-bookmark-empty"
           />
           <img
-            *ngIf="isBookmarked && !isBookmarkHovered"
+            *ngIf="mediaItem.isBookmarked && !isBookmarkHovered"
             src="assets/icon-bookmark-full.svg"
             alt="icon-bookmark-full"
           />
@@ -53,12 +53,12 @@
       <!-- div for showing the movie details -->
       <div
         class="bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.75)] h-[50%] w-full absolute rounded-lg left-0 bottom-[0%] flex-grow flex items-end p-4 md:p-6 z-30"
-        *ngIf="isTrending"
+        *ngIf="mediaItem.isTrending"
       >
         <div class="flex flex-col gap-[6px]">
           <div class="flex items-center gap-[7px]">
             <p class="text-[11px] md:text-xs text-pure-white text-opacity-75">
-              2019
+              {{mediaItem.year}}
             </p>
             <div class="flex items-center gap-[6px]">
               <div
@@ -73,7 +73,7 @@
                 <p
                   class="text-[11px] md:text-xs text-pure-white text-opacity-75"
                 >
-                  Movie
+                  {{mediaItem.category}}
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@
                 class="w-[3px] h-[3px] bg-pure-white bg-opacity-45 rounded-full"
               ></div>
               <p class="text-[11px] md:text-xs text-pure-white text-opacity-75">
-                E
+                {{mediaItem.rating}}
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@
             <p
               class="text-[14px] md:text-heading-xs font-medium text-pure-white cursor-pointer"
             >
-              Lone Heart
+              {{mediaItem.title}}
             </p>
           </div>
         </div>
@@ -114,10 +114,10 @@
       </div>
     </div>
     <!-- div to be shown when isTrending is true -->
-    <div class="flex flex-col gap-[6px]" *ngIf="!isTrending">
+    <div class="flex flex-col gap-[6px]" *ngIf="!mediaItem.isTrending">
       <div class="flex items-center gap-[7px]">
         <p class="text-[11px] md:text-xs text-pure-white text-opacity-75">
-          2019
+          {{mediaItem.year}}
         </p>
         <div class="flex items-center gap-[6px]">
           <div
@@ -130,7 +130,7 @@
               alt="icon-category-movie"
             />
             <p class="text-[11px] md:text-xs text-pure-white text-opacity-75">
-              Movie
+              {{mediaItem.category}}
             </p>
           </div>
         </div>
@@ -139,13 +139,13 @@
             class="w-[3px] h-[3px] bg-pure-white bg-opacity-45 rounded-full"
           ></div>
           <p class="text-[11px] md:text-xs text-pure-white text-opacity-75">
-            E
+            {{mediaItem.rating}}
           </p>
         </div>
       </div>
       <div>
         <p class="text-[14px] md:text-heading-xs font-medium text-pure-white">
-          Lone Heart
+          {{mediaItem.title}}
         </p>
       </div>
     </div>
