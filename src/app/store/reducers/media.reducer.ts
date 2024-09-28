@@ -1,3 +1,5 @@
+// media.reducer.ts
+
 import { MediaItem } from './../../models/mediaItem.model';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
@@ -14,7 +16,7 @@ export interface MediaState extends EntityState<MediaItem> {
 
 // Create an entity adapter for media items
 export const adapter = createEntityAdapter<MediaItem>({
-  selectId: (mediaItem: MediaItem) => uuidv4(), // Generate UUID for each media item
+  selectId: (mediaItem: MediaItem) => mediaItem.id || uuidv4(), // Use existing id or generate UUID for each media item
 });
 
 export const initialState: MediaState = adapter.getInitialState({
@@ -27,7 +29,10 @@ export const initialState: MediaState = adapter.getInitialState({
 export const mediaReducer = createReducer(
   initialState,
   on(MediaActions.loadMediaItemsSuccess, (state, { mediaItems }) =>
-    adapter.setAll(mediaItems, { ...state, loaded: true })
+    adapter.setAll(
+      mediaItems.map((item) => ({ ...item, id: item.id || uuidv4() })),
+      { ...state, loaded: true }
+    )
   ),
   on(MediaActions.loadMediaItemsFailure, (state, { error }) => ({
     ...state,
@@ -75,7 +80,6 @@ export const mediaReducer = createReducer(
         )
       : [],
   })),
-
   on(MediaActions.updateSearchInput, (state, { searchInput }) => ({
     ...state,
     searchInput,

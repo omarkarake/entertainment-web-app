@@ -17,4 +17,5 @@ export interface MediaItem {
   rating: string;
   isBookmarked: boolean;
   isTrending: boolean;
+  id?: string;
 }
