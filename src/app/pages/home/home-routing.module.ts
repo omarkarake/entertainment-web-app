@@ -5,8 +5,8 @@ import { AuthGuard } from '../auth-pages/auth.guard';
 import { HomeResolver } from './home.resolver';
 import { MainComponent } from './main/main.component';
 import { BookmarkedComponent } from './bookmarked/bookmarked/bookmarked.component';
-import { MoviesComponent } from './movies/movies/movies.component';
 import { TvSeriesComponent } from './tv-series/tv-series/tv-series.component';
+import { MoviesComponent } from './movies/movies.component';
 
 const routes: Routes = [
   {

@@ -5,10 +5,10 @@ import { AuthGuard } from '../auth-pages/auth.guard';
 import { HomeRoutingModule } from './home-routing.module';
 import { MainComponent } from './main/main.component';
 import { BookmarkedComponent } from './bookmarked/bookmarked/bookmarked.component';
-import { MoviesComponent } from './movies/movies/movies.component';
 import { TvSeriesComponent } from './tv-series/tv-series/tv-series.component';
 import { CommonModule } from '@angular/common';
 import { BookmarkComponent } from '../../components/bookmark/bookmark.component';
+import { MoviesComponent } from './movies/movies.component';
 
 @NgModule({
   imports: [HomeRoutingModule, CommonModule],
