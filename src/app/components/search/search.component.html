@@ -15,7 +15,7 @@
       <input
         formControlName="search"
         class="text-pure-white w-full text-[16px] md:text-heading-m font-light outline-none border-none bg-transparent focus:caret-red"
-        placeholder="Search for movies or TV series"
+        [placeholder]="placeholderText"
         (blur)="isTypingOutput()"
         (focus)="isTypingInput()"
       />

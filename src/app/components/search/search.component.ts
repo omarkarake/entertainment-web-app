@@ -1,5 +1,3 @@
-// search.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,10 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as MediaActions from '../../store/actions/media.actions';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MediaState } from '../../store/reducers/media.reducer';
 
 @Component({
@@ -21,6 +19,7 @@ import { MediaState } from '../../store/reducers/media.reducer';
 export class SearchComponent implements OnInit {
   searchForm!: FormGroup;
   isTyping: boolean = false;
+  placeholderText: string = 'Search for movies, TV series, etc...';
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +30,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the search form with form control and validation
     this.searchForm = this.fb.group({
-      search: ['', [Validators.minLength(1)]], // Min length of 3 characters
+      search: ['', [Validators.minLength(1)]], // Min length of 1 character
     });
 
     // Subscribe to the search control value changes with debounce and distinctUntilChanged
@@ -42,11 +41,23 @@ export class SearchComponent implements OnInit {
       )
       .subscribe((searchValue: string) => {
         console.log('Search Value:', searchValue); // Log the search value
-        this.store.dispatch(MediaActions.updateSearchInput({ searchInput: searchValue }));
+        this.store.dispatch(
+          MediaActions.updateSearchInput({ searchInput: searchValue })
+        );
         if (searchValue.length >= 1) {
           this.dispatchSearchAction(searchValue);
         }
       });
+
+    // Listen for route changes to update the placeholder text
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updatePlaceholderText(this.router.url);
+      });
+
+    // Initial placeholder update
+    this.updatePlaceholderText(this.router.url);
   }
 
   get searchControl(): FormControl {
@@ -81,6 +92,18 @@ export class SearchComponent implements OnInit {
       this.store.dispatch(
         MediaActions.searchBookmarkedItems({ searchTerm: searchValue })
       );
+    }
+  }
+
+  private updatePlaceholderText(url: string) {
+    if (url.endsWith('/movies')) {
+      this.placeholderText = 'Search for movies';
+    } else if (url.endsWith('/tv-series')) {
+      this.placeholderText = 'Search for TV series';
+    } else if (url.endsWith('/bookmarked')) {
+      this.placeholderText = 'Search for bookmarked shows';
+    } else {
+      this.placeholderText = 'Search for movies or TV series';
     }
   }
 }
