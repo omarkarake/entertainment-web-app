@@ -6,6 +6,7 @@ import { filter, first, Observable } from 'rxjs';
 import { MediaState } from '../../store/reducers/media.reducer';
 import { Store } from '@ngrx/store';
 import { selectAllMediaItems } from '../../store/selectors/media.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   activeFeature: string = 'main';
   mediaItems$!: Observable<MediaItem[]>;
   screenWidth: number = window.innerWidth;
+  dropLogout: boolean = false;
 
   // Hover states
   mainHovered: boolean = false;
@@ -26,7 +28,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private navigationService: NavigationService,
     private mediaService: MediaService,
-    private store: Store<MediaState>
+    private store: Store<MediaState>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -115,5 +118,14 @@ export class HomeComponent implements OnInit {
   // Update the active feature on icon click
   setActiveFeature(feature: string) {
     this.navigationService.setActiveFeature(feature);
+  }
+
+  toggleLogout(){
+    this.dropLogout = !this.dropLogout;
+  }
+
+  Logout(){
+    this.router.navigate(['auth/login']);
+    this.toggleLogout();
   }
 }
