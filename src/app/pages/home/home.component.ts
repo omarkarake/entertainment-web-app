@@ -1,22 +1,11 @@
-// home.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MediaService } from '../../services/media/media.service';
 import { MediaItem } from '../../models/mediaItem.model';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { filter, first, Observable } from 'rxjs';
-import { MediaState, selectAll } from '../../store/reducers/media.reducer';
+import { MediaState } from '../../store/reducers/media.reducer';
 import { Store } from '@ngrx/store';
-import {
-  selectAllMediaItems,
-  selectNonTrendingBookmarkedMoviesAndTVShows,
-  selectNonTrendingMovies,
-  selectNonTrendingMoviesAndTVShows,
-  selectNonTrendingTVShows,
-  selectTrendingBookmarkedMoviesAndTVShows,
-  selectTrendingMovies,
-  selectTrendingMoviesAndTVShows,
-  selectTrendingTVShows,
-} from '../../store/selectors/media.selectors';
+import { selectAllMediaItems } from '../../store/selectors/media.selectors';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +15,13 @@ import {
 export class HomeComponent implements OnInit {
   activeFeature: string = 'main';
   mediaItems$!: Observable<MediaItem[]>;
+  screenWidth: number = window.innerWidth;
+
+  // Hover states
+  mainHovered: boolean = false;
+  moviesHovered: boolean = false;
+  tvSeriesHovered: boolean = false;
+  bookmarkedHovered: boolean = false;
 
   constructor(
     private navigationService: NavigationService,
@@ -41,98 +37,79 @@ export class HomeComponent implements OnInit {
 
     // Ensure the mediaItems are available before logging
     this.mediaItems$ = this.store.select(selectAllMediaItems).pipe(
-      filter((mediaItems) => mediaItems && mediaItems.length > 0), // Ensure items exist
-      first() // Complete after the first emission
+      filter((mediaItems) => mediaItems && mediaItems.length > 0),
+      first()
     );
 
     this.mediaItems$.subscribe({
       next: (mediaItems: MediaItem[]) => {
-        // console.log('Media items:', mediaItems);
+        // Handle media items
       },
       error: (err) => {
         console.error('Error fetching media items:', err);
       },
     });
 
-    // // For movies and TV shows that are trending
-    // this.store.select(selectTrendingMoviesAndTVShows).subscribe({
-    //   next: (trendingItems: MediaItem[]) => {
-    //     console.log('Trending items:', trendingItems);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching trending items:', err);
-    //   },
-    // });
+    this.onResize(); // Initialize the screen size check
+  }
 
-    // // For movies and TV shows that are not trending
-    // this.store.select(selectNonTrendingMoviesAndTVShows).subscribe({
-    //   next: (nonTrendingItems: MediaItem[]) => {
-    //     console.log('Non-trending items:', nonTrendingItems);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching non-trending items:', err);
-    //   },
-    // });
+  // Update screenWidth on window resize
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any): void {
+    this.screenWidth = window.innerWidth;
+  }
 
-    // // For trending movies
-    // this.store.select(selectTrendingMovies).subscribe({
-    //   next: (trendingMovies: MediaItem[]) => {
-    //     console.log('Trending movies:', trendingMovies);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching trending movies:', err);
-    //   },
-    // });
+  // Check if the screen is large enough (greater than 1024px)
+  isLargeScreen(): boolean {
+    return this.screenWidth >= 1024;
+  }
 
-    // // For non-trending movies
-    // this.store.select(selectNonTrendingMovies).subscribe({
-    //   next: (nonTrendingMovies: MediaItem[]) => {
-    //     console.log('Non-trending movies:', nonTrendingMovies);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching non-trending movies:', err);
-    //   },
-    // });
+  // Hover methods for main icon
+  setMainHover() {
+    if (this.isLargeScreen()) {
+      this.mainHovered = true;
+    }
+  }
+  setMainHoverFalse() {
+    if (this.isLargeScreen()) {
+      this.mainHovered = false;
+    }
+  }
 
-    // // For trending TV shows
-    // this.store.select(selectTrendingTVShows).subscribe({
-    //   next: (trendingTVShows: MediaItem[]) => {
-    //     console.log('Trending TV shows:', trendingTVShows);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching trending TV shows:', err);
-    //   },
-    // });
+  // Hover methods for movies icon
+  setMoviesHover() {
+    if (this.isLargeScreen()) {
+      this.moviesHovered = true;
+    }
+  }
+  setMoviesHoverFalse() {
+    if (this.isLargeScreen()) {
+      this.moviesHovered = false;
+    }
+  }
 
-    // // For non-trending TV shows
-    // this.store.select(selectNonTrendingTVShows).subscribe({
-    //   next: (nonTrendingTVShows: MediaItem[]) => {
-    //     console.log('Non-trending TV shows:', nonTrendingTVShows);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching non-trending TV shows:', err);
-    //   },
-    // });
+  // Hover methods for TV series icon
+  setTvSeriesHover() {
+    if (this.isLargeScreen()) {
+      this.tvSeriesHovered = true;
+    }
+  }
+  setTvSeriesHoverFalse() {
+    if (this.isLargeScreen()) {
+      this.tvSeriesHovered = false;
+    }
+  }
 
-    // // For bookmarked trending movies and TV shows
-    // this.store.select(selectTrendingBookmarkedMoviesAndTVShows).subscribe({
-    //   next: (trendingBookmarkedItems: MediaItem[]) => {
-    //     console.log('Trending bookmarked items:', trendingBookmarkedItems);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching trending bookmarked items:', err);
-    //   },
-    // });
-
-    // // For bookmarked non-trending movies and TV shows
-    // this.store.select(selectNonTrendingBookmarkedMoviesAndTVShows).subscribe({
-    //   next: (nonTrendingBookmarkedItems: MediaItem[]) => {
-    //     console.log('Non-trending bookmarked items:', nonTrendingBookmarkedItems);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching non-trending bookmarked items:', err);
-    //   },
-    // });
+  // Hover methods for bookmarked icon
+  setBookmarkedHover() {
+    if (this.isLargeScreen()) {
+      this.bookmarkedHovered = true;
+    }
+  }
+  setBookmarkedHoverFalse() {
+    if (this.isLargeScreen()) {
+      this.bookmarkedHovered = false;
+    }
   }
 
   // Update the active feature on icon click

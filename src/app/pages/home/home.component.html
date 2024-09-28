@@ -15,15 +15,26 @@
       class="flex items-center lg:flex-col gap-6 md:gap-8 lg:gap-10 lg:absolute lg:top-[136px]"
     >
       <!-- Home Icon -->
-      <div (click)="setActiveFeature('main')" class="cursor-pointer">
+      <div
+        (mouseenter)="setMainHover()"
+        (mouseleave)="setMainHoverFalse()"
+        (click)="setActiveFeature('main')"
+        class="cursor-pointer"
+      >
         <img
-          *ngIf="activeFeature === 'main'"
+          *ngIf="activeFeature === 'main' && !mainHovered"
           src="assets/icon-nav-home-activated.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-home-activated"
         />
         <img
-          *ngIf="activeFeature !== 'main'"
+          *ngIf="mainHovered"
+          src="assets/icon-nav-home-hovered.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-home-hovered"
+        />
+        <img
+          *ngIf="activeFeature !== 'main' && !mainHovered"
           src="assets/icon-nav-home.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-home"
@@ -31,15 +42,26 @@
       </div>
 
       <!-- Movies Icon -->
-      <div (click)="setActiveFeature('movies')" class="cursor-pointer">
+      <div
+        (mouseenter)="setMoviesHover()"
+        (mouseleave)="setMoviesHoverFalse()"
+        (click)="setActiveFeature('movies')"
+        class="cursor-pointer"
+      >
         <img
-          *ngIf="activeFeature === 'movies'"
+          *ngIf="activeFeature === 'movies' && !moviesHovered"
           src="assets/icon-nav-movies-activated.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-movies-activated"
         />
         <img
-          *ngIf="activeFeature !== 'movies'"
+          *ngIf="moviesHovered"
+          src="assets/icon-nav-movies-hovered.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-movies-hovered"
+        />
+        <img
+          *ngIf="activeFeature !== 'movies' && !moviesHovered"
           src="assets/icon-nav-movies.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-movies"
@@ -47,15 +69,26 @@
       </div>
 
       <!-- TV Series Icon -->
-      <div (click)="setActiveFeature('tv-series')" class="cursor-pointer">
+      <div
+        (mouseenter)="setTvSeriesHover()"
+        (mouseleave)="setTvSeriesHoverFalse()"
+        (click)="setActiveFeature('tv-series')"
+        class="cursor-pointer"
+      >
         <img
-          *ngIf="activeFeature === 'tv-series'"
+          *ngIf="activeFeature === 'tv-series' && !tvSeriesHovered"
           src="assets/icon-nav-tv-series-activated.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-tv-series-activated"
         />
         <img
-          *ngIf="activeFeature !== 'tv-series'"
+          *ngIf="tvSeriesHovered"
+          src="assets/icon-nav-tv-series-hovered.svg"
+          class="w-[16px] h-4 md:w-5 md:h-[20px]"
+          alt="icon-nav-tv-series-hovered"
+        />
+        <img
+          *ngIf="activeFeature !== 'tv-series' && !tvSeriesHovered"
           src="assets/icon-nav-tv-series.svg"
           class="w-[16px] h-4 md:w-5 md:h-[20px]"
           alt="icon-nav-tv-series"
@@ -63,15 +96,26 @@
       </div>
 
       <!-- Bookmarked Icon -->
-      <div (click)="setActiveFeature('bookmarked')" class="cursor-pointer">
+      <div
+        (mouseenter)="setBookmarkedHover()"
+        (mouseleave)="setBookmarkedHoverFalse()"
+        (click)="setActiveFeature('bookmarked')"
+        class="cursor-pointer"
+      >
         <img
-          *ngIf="activeFeature === 'bookmarked'"
+          *ngIf="activeFeature === 'bookmarked' && !bookmarkedHovered"
           src="assets/icon-nav-bookmark-activated.svg"
           class="w-[13px] h-4 md:w-4 md:h-[20px]"
           alt="icon-nav-bookmark-activated"
         />
         <img
-          *ngIf="activeFeature !== 'bookmarked'"
+          *ngIf="bookmarkedHovered"
+          src="assets/icon-nav-bookmark-hovered.svg"
+          class="w-[13px] h-4 md:w-4 md:h-[20px]"
+          alt="icon-nav-bookmark-hovered"
+        />
+        <img
+          *ngIf="activeFeature !== 'bookmarked' && !bookmarkedHovered"
           src="assets/icon-nav-bookmark.svg"
           class="w-[13px] h-4 md:w-4 md:h-[20px]"
           alt="icon-nav-bookmark"
