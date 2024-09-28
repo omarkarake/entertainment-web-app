@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class BookmarkComponent implements OnInit {
   @Input() mediaItem!: MediaItem;
+  @Input() isTrendingForSearch: boolean = false;
   screenWidth: number = window.innerWidth;
   isBookmarked: boolean = false;
   isHovered: boolean = false;

@@ -1,7 +1,12 @@
 // search.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as MediaActions from '../../store/actions/media.actions';
@@ -17,12 +22,16 @@ export class SearchComponent implements OnInit {
   searchForm!: FormGroup;
   isTyping: boolean = false;
 
-  constructor(private fb: FormBuilder, private store: Store<MediaState>, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<MediaState>,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Initialize the search form with form control and validation
     this.searchForm = this.fb.group({
-      search: ['', [Validators.minLength(3)]], // Min length of 3 characters
+      search: ['', [Validators.minLength(1)]], // Min length of 3 characters
     });
 
     // Subscribe to the search control value changes with debounce and distinctUntilChanged
@@ -33,7 +42,9 @@ export class SearchComponent implements OnInit {
       )
       .subscribe((searchValue: string) => {
         console.log('Search Value:', searchValue); // Log the search value
-        this.dispatchSearchAction(searchValue);
+        if (searchValue.length >= 1) {
+          this.dispatchSearchAction(searchValue);
+        }
       });
   }
 
@@ -54,13 +65,21 @@ export class SearchComponent implements OnInit {
   private dispatchSearchAction(searchValue: string) {
     const url = this.router.url;
     if (url.endsWith('/main')) {
-      this.store.dispatch(MediaActions.searchAllItems({ searchTerm: searchValue }));
+      this.store.dispatch(
+        MediaActions.searchAllItems({ searchTerm: searchValue })
+      );
     } else if (url.endsWith('/movies')) {
-      this.store.dispatch(MediaActions.searchMovies({ searchTerm: searchValue }));
+      this.store.dispatch(
+        MediaActions.searchMovies({ searchTerm: searchValue })
+      );
     } else if (url.endsWith('/tv-series')) {
-      this.store.dispatch(MediaActions.searchTVSeries({ searchTerm: searchValue }));
+      this.store.dispatch(
+        MediaActions.searchTVSeries({ searchTerm: searchValue })
+      );
     } else if (url.endsWith('/bookmarked')) {
-      this.store.dispatch(MediaActions.searchBookmarkedItems({ searchTerm: searchValue }));
+      this.store.dispatch(
+        MediaActions.searchBookmarkedItems({ searchTerm: searchValue })
+      );
     }
   }
 }
