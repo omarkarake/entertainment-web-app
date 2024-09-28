@@ -10,11 +10,15 @@
     class="h-full pb-[4px] md:pt-2 w-full"
     [ngClass]="{ 'border-b-[1px] border-graish-blue': isTyping }"
   >
-    <input
-      class="text-pure-white w-full text-[16px] md:text-heading-m font-light outline-none border-none bg-transparent focus:caret-red"
-      placeholder="Search for movies or TV series"
-      (blur)="isTypingOutput()"
-      (focus)="isTypingInput()"
-    />
+    <!-- Bind the form to the input -->
+    <form [formGroup]="searchForm">
+      <input
+        formControlName="search"
+        class="text-pure-white w-full text-[16px] md:text-heading-m font-light outline-none border-none bg-transparent focus:caret-red"
+        placeholder="Search for movies or TV series"
+        (blur)="isTypingOutput()"
+        (focus)="isTypingInput()"
+      />
+    </form>
   </div>
 </div>

@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MediaEffects } from './store/effects/media.effects';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule, // Required for Toastr animations
