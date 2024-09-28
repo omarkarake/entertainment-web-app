@@ -27,18 +27,11 @@ export const selectNonTrendingMoviesAndTVShows = createSelector(
   (mediaItems: MediaItem[]) => mediaItems.filter((item) => !item.isTrending)
 );
 
-// 2.1 Select trending movies
-export const selectTrendingMovies = createSelector(
+// 2.1 Select movies
+export const selectMovies = createSelector(
   selectAllMediaItems,
   (mediaItems: MediaItem[]) =>
-    mediaItems.filter((item) => item.isTrending && item.category === 'Movie')
-);
-
-// 2.2 Select non-trending movies
-export const selectNonTrendingMovies = createSelector(
-  selectAllMediaItems,
-  (mediaItems: MediaItem[]) =>
-    mediaItems.filter((item) => !item.isTrending && item.category === 'Movie')
+    mediaItems.filter((item) => item.category === 'Movie')
 );
 
 // 3.1 Select trending TV shows
