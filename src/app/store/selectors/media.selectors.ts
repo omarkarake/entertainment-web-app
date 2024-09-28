@@ -43,18 +43,18 @@ export const selectTVShows = createSelector(
     )
 );
 
-// 4.1 Select bookmarked trending movies and TV shows
-export const selectTrendingBookmarkedMoviesAndTVShows = createSelector(
+// 4.1 Select bookMarked movies
+export const selectBookmarkedMovies = createSelector(
   selectAllMediaItems,
   (mediaItems: MediaItem[]) =>
-    mediaItems.filter((item) => item.isTrending && item.isBookmarked)
+    mediaItems.filter((item) => item.category === 'Movie' && item.isBookmarked)
 );
 
-// 4.2 Select bookmarked non-trending movies and TV shows
-export const selectNonTrendingBookmarkedMoviesAndTVShows = createSelector(
+// 4.2 Select bookmarked TV shows
+export const selectBookmarkedTVShows = createSelector(
   selectAllMediaItems,
   (mediaItems: MediaItem[]) =>
-    mediaItems.filter((item) => !item.isTrending && item.isBookmarked)
+    mediaItems.filter((item) => item.category === 'TV Series' && item.isBookmarked)
 );
 
 // Selector for search results
