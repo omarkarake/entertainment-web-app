@@ -1,11 +1,6 @@
 <!-- main.component.html -->
 
-<div
-  *ngIf="
-    searchResults && searchText.length > 0;
-    else noSearchResults
-  "
->
+<div *ngIf="searchResults && searchText.length > 0; else noSearchResults">
   <div class="lg:mt-3">
     <p class="text-[20px] md:text-heading-l font-light text-pure-white">
       Found {{ searchResults.length }} results for '{{
@@ -14,7 +9,7 @@
     </p>
     <div
       *ngIf="searchResults.length > 0"
-      class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+      class="mt-4 flex flex-row justify-between lg:justify-start gap-y-4 md:gap-5 lg:gap-y-8 flex-wrap"
     >
       <app-bookmark
         *ngFor="let mediaItem of searchResults"
@@ -47,7 +42,7 @@
     </p>
     <div
       *ngIf="nonTrendingMediaItems$ | async as nonTrendingMediaItems"
-      class="mt-4 flex flex-row justify-between gap-y-4 md:gap-6 lg:gap-y-8 flex-wrap"
+      class="mt-4 flex flex-row justify-between lg:justify-start gap-y-4 md:gap-5 lg:gap-y-8 flex-wrap"
     >
       <app-bookmark
         *ngFor="let mediaItem of nonTrendingMediaItems"
