@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
       this.authService.signup(email, password).subscribe((res) => {
         if (res.success) {
           console.log('Signup successful');
-          this.toastr.error('Signup successful');
+          this.toastr.success('Signup successful');
           this.router.navigate(['/login']); // Redirect to login after successful signup
         } else {
           console.log('Signup failed:', res.message);
