@@ -128,7 +128,6 @@ export class HomeComponent implements OnInit {
 
   Logout(){
     this.authService.logout();
-    this.router.navigate(['auth/login']);
     this.toggleLogout();
   }
 }

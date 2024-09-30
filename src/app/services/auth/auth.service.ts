@@ -3,17 +3,22 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, from, Observable, of, switchMap, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  firebaseAuth = inject(Auth);
-  router = inject(Router);
+  constructor(
+    private toastr: ToastrService,
+    private firebaseAuth: Auth,
+    private router: Router
+  ) {}
 
   register(
     email: string,
@@ -60,52 +65,56 @@ export class AuthService {
 
     // ------------------------------
 
-    // return this.signin(email, password).pipe(
-    //   take(1), // Ensures the observable completes after one emission
-    //   // Handle success and error cases within the pipe
-    //   switchMap(() => {
-    //     this.loggedIn = true;
-    //     return of({ success: true });
-    //   }),
-    //   catchError(() => {
-    //     return of({ success: false });
-    //   })
-    // );
+    return this.signin(email, password).pipe(
+      take(1), // Ensures the observable completes after one emission
+      // Handle success and error cases within the pipe
+      switchMap(() => {
+        this.loggedIn = true;
+        return of({ success: true });
+      }),
+      catchError(() => {
+        return of({ success: false });
+      })
+    );
   }
 
   // Signup method
   signup(email: string, password: string): Observable<any> {
     // Simulate storing user data in the array
-    const userExists = this.users.find((user) => user.email === email);
+    // const userExists = this.users.find((user) => user.email === email);
 
-    if (!userExists) {
-      this.users.push({ email, password });
-      return of({ success: true });
-    } else {
-      return of({ success: false, message: 'User already exists' });
-    }
+    // if (!userExists) {
+    //   this.users.push({ email, password });
+    //   return of({ success: true });
+    // } else {
+    //   return of({ success: false, message: 'User already exists' });
+    // }
 
     // ------------------------------
-    // const username = email.split('@')[0];
+    const username = email.split('@')[0];
 
-    // return this.register(email, username, password).pipe(
-    //   take(1), // Ensures the observable completes after one emission
-    //   // Handle success and error cases within the pipe
-    //   switchMap(() => {
-    //     this.router.navigateByUrl('/login');
-    //     return of({ success: true });
-    //   }),
-    //   catchError(() => {
-    //     return of({ success: false, message: 'User already exists' });
-    //   })
-    // );
+    return this.register(email, username, password).pipe(
+      take(1), // Ensures the observable completes after one emission
+      // Handle success and error cases within the pipe
+      switchMap(() => {
+        this.router.navigateByUrl('/login');
+        return of({ success: true });
+      }),
+      catchError(() => {
+        return of({ success: false, message: 'User already exists' });
+      })
+    );
   }
 
   isAuthenticated(): boolean {
     return this.loggedIn;
   }
 
-  logout(): void {
+  logout(): Observable<void> {
+    const promise = signOut(this.firebaseAuth);
     this.loggedIn = false;
+    this.router.navigate(['/auth/login']);
+    this.toastr.success('Logged out successfully!', 'Success');
+    return from(promise);
   }
 }
