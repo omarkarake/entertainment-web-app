@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   updateProfile,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -29,6 +30,15 @@ export class AuthService {
     return from(promise);
   }
 
+  signin(email: string, password: string): Observable<void> {
+    const promise = signInWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password
+    ).then(() => {});
+    return from(promise);
+  }
+
   private loggedIn = false;
   private users = [
     { email: 'omar@gmail.com', password: 'Omar12345' }, // Static user
@@ -37,16 +47,30 @@ export class AuthService {
   // Login method
   login(email: string, password: string): Observable<any> {
     // Check if user credentials match the static user
-    const user = this.users.find(
-      (user) => user.email === email && user.password === password
-    );
+    // const user = this.users.find(
+    //   (user) => user.email === email && user.password === password
+    // );
 
-    if (user) {
-      this.loggedIn = true;
-      return of({ success: true });
-    } else {
-      return of({ success: false });
-    }
+    // if (user) {
+    //   this.loggedIn = true;
+    //   return of({ success: true });
+    // } else {
+    //   return of({ success: false });
+    // }
+
+    // ------------------------------
+
+    return this.signin(email, password).pipe(
+      take(1), // Ensures the observable completes after one emission
+      // Handle success and error cases within the pipe
+      switchMap(() => {
+        this.loggedIn = true;
+        return of({ success: true });
+      }),
+      catchError(() => {
+        return of({ success: false });
+      })
+    );
   }
 
   // Signup method
