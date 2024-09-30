@@ -17,6 +17,7 @@ import { MediaEffects } from './store/effects/media.effects';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { appConfig } from './app.config';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [],
+  providers: [...appConfig.providers],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
