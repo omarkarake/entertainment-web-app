@@ -7,6 +7,7 @@ import { MediaState } from '../../store/reducers/media.reducer';
 import { Store } from '@ngrx/store';
 import { selectAllMediaItems } from '../../store/selectors/media.selectors';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     private navigationService: NavigationService,
     private mediaService: MediaService,
     private store: Store<MediaState>,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -125,6 +127,7 @@ export class HomeComponent implements OnInit {
   }
 
   Logout(){
+    this.authService.logout();
     this.router.navigate(['auth/login']);
     this.toggleLogout();
   }

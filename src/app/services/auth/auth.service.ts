@@ -47,61 +47,65 @@ export class AuthService {
   // Login method
   login(email: string, password: string): Observable<any> {
     // Check if user credentials match the static user
-    // const user = this.users.find(
-    //   (user) => user.email === email && user.password === password
-    // );
+    const user = this.users.find(
+      (user) => user.email === email && user.password === password
+    );
 
-    // if (user) {
-    //   this.loggedIn = true;
-    //   return of({ success: true });
-    // } else {
-    //   return of({ success: false });
-    // }
+    if (user) {
+      this.loggedIn = true;
+      return of({ success: true });
+    } else {
+      return of({ success: false });
+    }
 
     // ------------------------------
 
-    return this.signin(email, password).pipe(
-      take(1), // Ensures the observable completes after one emission
-      // Handle success and error cases within the pipe
-      switchMap(() => {
-        this.loggedIn = true;
-        return of({ success: true });
-      }),
-      catchError(() => {
-        return of({ success: false });
-      })
-    );
+    // return this.signin(email, password).pipe(
+    //   take(1), // Ensures the observable completes after one emission
+    //   // Handle success and error cases within the pipe
+    //   switchMap(() => {
+    //     this.loggedIn = true;
+    //     return of({ success: true });
+    //   }),
+    //   catchError(() => {
+    //     return of({ success: false });
+    //   })
+    // );
   }
 
   // Signup method
   signup(email: string, password: string): Observable<any> {
     // Simulate storing user data in the array
-    // const userExists = this.users.find((user) => user.email === email);
+    const userExists = this.users.find((user) => user.email === email);
 
-    // if (!userExists) {
-    //   this.users.push({ email, password });
-    //   return of({ success: true });
-    // } else {
-    //   return of({ success: false, message: 'User already exists' });
-    // }
+    if (!userExists) {
+      this.users.push({ email, password });
+      return of({ success: true });
+    } else {
+      return of({ success: false, message: 'User already exists' });
+    }
 
     // ------------------------------
-    const username = email.split('@')[0];
+    // const username = email.split('@')[0];
 
-    return this.register(email, username, password).pipe(
-      take(1), // Ensures the observable completes after one emission
-      // Handle success and error cases within the pipe
-      switchMap(() => {
-        this.router.navigateByUrl('/login');
-        return of({ success: true });
-      }),
-      catchError(() => {
-        return of({ success: false, message: 'User already exists' });
-      })
-    );
+    // return this.register(email, username, password).pipe(
+    //   take(1), // Ensures the observable completes after one emission
+    //   // Handle success and error cases within the pipe
+    //   switchMap(() => {
+    //     this.router.navigateByUrl('/login');
+    //     return of({ success: true });
+    //   }),
+    //   catchError(() => {
+    //     return of({ success: false, message: 'User already exists' });
+    //   })
+    // );
   }
 
   isAuthenticated(): boolean {
     return this.loggedIn;
+  }
+
+  logout(): void {
+    this.loggedIn = false;
   }
 }
